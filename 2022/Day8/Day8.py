@@ -79,60 +79,23 @@ def part1():
 
 def dfs(grid, row, col):
     score = 1
-    tempr = row + 1
-    val = 0
-    while tempr < len(grid) and grid[tempr][col] < grid[row][col]:
-        tempr += 1
-        val += 1
-
-    if val > 0:
-        if tempr < len(grid):
+    
+    for direction in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+        temp = [row + direction[0], col + direction[1]]
+        val = 0
+        while -1 < temp[0] < len(grid) and -1 < temp[1] < len(grid[0]) and grid[temp[0]][temp[1]] < grid[row][col]:
+            temp[0] += direction[0]
+            temp[1] += direction[1]
             val += 1
-        score *= val
-    else:
-        score = 0
 
-    tempr = row - 1
-    val = 0
-    while tempr > -1 and grid[tempr][col] < grid[row][col]:
-        tempr -= 1
-        val += 1
-
-    if val > 0:
-        if tempr > -1:
-            val += 1
-        score *= val
-    else:
-        score = 0
-
-    tempc = col + 1
-    val = 0
-    while tempc < len(grid[0]) and grid[row][tempc] < grid[row][col]:
-        tempc += 1
-        val += 1
-
-    if val > 0:
-        if tempc < len(grid[0]):
-            val += 1
-        score *= val
-    else:
-        score = 0
-
-    tempc = col - 1
-    val = 0
-    while tempc > -1 and grid[row][tempc] < grid[row][col]:
-        tempc -= 1
-        val += 1
-
-    if val > 0:
-        if tempc > -1:
-            val += 1
-        score *= val
-    else:
-        score = 0
+        if val > 0:
+            if -1 < temp[0] < len(grid) and -1 < temp[1] < len(grid[0]):
+                val += 1
+            score *= val
+        else:
+            return 0
 
     return score
-
 
     
 def part2():
